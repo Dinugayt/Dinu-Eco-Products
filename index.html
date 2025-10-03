@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dinu Product</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fff9;
+      color: #222;
+    }
+    header {
+      background: #e6ffe6;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 2px solid #cceccc;
+    }
+    header img.logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      margin: 5px 0;
+      color: #006600;
+    }
+    header p {
+      margin: 0;
+      color: #333;
+    }
+    footer {
+      margin-top: 30px;
+      background: #004d00;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+    }
+    button.whatsapp {
+      background: #25d366;
+      border: none;
+      padding: 10px 18px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button.whatsapp:hover {
+      background: #20b954;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Dinu Product Logo" class="logo">
+    <h1>Welcome to Dinu Product</h1>
+    <p>Order our best eco products online</p>
+  </header>
+
+  <main style="padding:20px; text-align:center;">
+    <h2>Our Products</h2>
+    <p>Fresh, eco-friendly and healthy products for you 🌱</p>
+    <button class="whatsapp" onclick="openWhatsapp()">Order via WhatsApp</button>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Dinu Product • For orders: +94 701691792 
+  </footer>
+
+  <script>
+    // change this to your real phone in international format (without +)
+    const YOUR_PHONE = "94701691792"; // 94 + Sri Lanka number
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function openWhatsapp(item = ''){
+      const phone = YOUR_PHONE;
+      let text = encodeURIComponent(item ? Hello, I'm interested in: ${item} : "Hello, I want to order");
+      const url = https://wa.me/${phone}?text=${text};
+      window.open(url, '_blank');
+    }
+
+    function sendMailOrder(){
+      const product = document.getElementById('mProduct').textContent;
+      const price = document.getElementById('mPrice').textContent;
+      const name = document.getElementById('mName').value || 'N/A';
+      const phone = document.getElementById('mPhone').value || 'N/A';
+      const note = document.getElementById('mNote').value || '';
+      const subject = encodeURIComponent(New order: ${product});
+      const body = encodeURIComponent(Product: ${product}\nPrice: LKR ${price}\nName: ${name}\nPhone: ${phone}\nNote: ${note});
+      window.location.href = mailto:whsirimali@gmail.com?subject=${subject}&body=${body};
+    }
+
+    function submitOrderForm(){
+      const name = document.getElementById('custName').value || 'N/A';
+      const phone = document.getElementById('custPhone').value || 'N/A';
+      const note = document.getElementById('custNote').value || '';
+      const subject = encodeURIComponent(New order from site: ${name});
+      const body = encodeURIComponent(Name: ${name}\nPhone: ${phone}\nNote: ${note});
+      window.location.href = mailto:whsirimali@gmail.com?subject=${subject}&body=${body};
+    }
+
+    // small UX: close modal on ESC
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+  </script>
+
+</body>
+</html>
+
+
+---
