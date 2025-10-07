@@ -1,0 +1,58 @@
+</html><!------------------------- shop.html --------------------------><!-- Shop page (products grid + cart + search + checkout via WhatsApp) --><!DOCTYPE html><html lang="si">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dinu Eco Product - Shop</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">🌿 Dinu Eco Product</a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="cart-toggle" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+    </div>
+  </header>  <main class="container">
+    <section class="shop-top">
+      <h1>Our Products</h1>
+      <div class="shop-controls">
+        <input id="search-input" type="search" placeholder="Search products..." />
+        <select id="sort-select">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+        </select>
+      </div>
+    </section><section id="product-grid" class="product-grid">
+  <!-- Products are rendered by script.js from product data -->
+</section>
+
+<!-- CART SIDEBAR / POPUP -->
+<aside id="cart-sidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button id="close-cart">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items">
+    <!-- JS will render cart items here -->
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">Total: Rs. <span id="cart-total">0</span></div>
+    <button id="checkout-btn" class="checkout-btn">Checkout via WhatsApp</button>
+  </div>
+</aside>
+
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <p>WhatsApp Orders: <strong>+94 701691792</strong></p>
+</section>
+
+  </main>  <footer>
+    <div class="container">
+      © <span id="year2"></span> Dinu Eco Product • WhatsApp: +94 701691792
+    </div>
+  </footer>  <script src="assets/script.js"></script></body>

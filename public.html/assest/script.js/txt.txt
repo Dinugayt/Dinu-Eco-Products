@@ -1,0 +1,33 @@
+<!------------------------- assets/script.js -------------------------->// Product data and cart logic const PRODUCTS = [ { id: 'p1', name: 'කොහිල කුඩු', en: 'Kohila Powder', price: 200, weight: '50g', img: 'assets/images/kohila_powder.jpg' }, { id: 'p2', name: 'පොලොස් කුඩු', en: 'Polos Powder', price: 209, weight: '50g', img: 'assets/images/polos_powder.jpg' }, { id: 'p3', name: 'කුරුදු', en: 'Cinnamon Powder', price: 300, weight: '50g', img: 'assets/images/kurundu_powder.jpg' } ];
+
+// Simple in-memory cart let cart = JSON.parse(localStorage.getItem('dinucart') || '[]');
+
+// DOM refs const productGrid = document.getElementById('product-grid'); const searchInput = document.getElementById('search-input'); const sortSelect = document.getElementById('sort-select'); const cartToggle = document.getElementById('cart-toggle'); const cartSidebar = document.getElementById('cart-sidebar'); const cartItemsEl = document.getElementById('cart-items'); const cartCountEl = document.getElementById('cart-count'); const cartTotalEl = document.getElementById('cart-total'); const checkoutBtn = document.getElementById('checkout-btn'); const closeCartBtn = document.getElementById('close-cart');
+
+// Utilities function saveCart(){ localStorage.setItem('dinucart', JSON.stringify(cart)); updateCartUI(); } function updateCartUI(){ cartCountEl.textContent = cart.reduce((s,i)=>s+i.qty,0); cartTotalEl.textContent = cart.reduce((s,i)=>s+i.qty*i.price,0); renderCartItems(); }
+
+function renderProducts(list=PRODUCTS){ if(!productGrid) return; productGrid.innerHTML = ''; list.forEach(p=>{ const card = document.createElement('div'); card.className='product-card'; card.innerHTML = <img src="${p.img}" alt="${p.en}"> <div class="product-info"> <h3>${p.name} (${p.en})</h3> <p>Weight: ${p.weight}</p> <div class="price">Rs. ${p.price}</div> <p>Dinu Eco Product – Fresh, healthy, and eco-friendly traditional Sri Lankan food products made with natural ingredients.</p> <button class="add-btn" data-id="${p.id}">Add to cart</button> </div>; productGrid.appendChild(card); }); }
+
+function renderCartItems(){ if(!cartItemsEl) return; cartItemsEl.innerHTML = ''; if(cart.length===0){ cartItemsEl.innerHTML = '<p>Your cart is empty.</p>'; return; } cart.forEach(item=>{ const prod = PRODUCTS.find(p=>p.id===item.id); const el = document.createElement('div'); el.className='cart-item'; el.innerHTML = <img src="${prod.img}" alt="${prod.en}"> <div class="meta"> <strong>${prod.name}</strong> <div>Rs. ${prod.price} x ${item.qty}</div> </div> <div class="controls"> <button class="plus" data-id="${item.id}">+</button> <button class="minus" data-id="${item.id}">-</button> <button class="remove" data-id="${item.id}">Remove</button> </div>; cartItemsEl.appendChild(el); }); }
+
+function addToCart(id){ const existing = cart.find(i=>i.id===id); const prod = PRODUCTS.find(p=>p.id===id); if(!prod) return; if(existing) existing.qty += 1; else cart.push({id:id, qty:1, price:prod.price}); saveCart(); }
+
+function changeQty(id, delta){ const item = cart.find(i=>i.id===id); if(!item) return; item.qty += delta; if(item.qty<=0) cart = cart.filter(i=>i.id!==id); saveCart(); }
+
+function removeItem(id){ cart = cart.filter(i=>i.id!==id); saveCart(); }
+
+function openCart(){ cartSidebar.classList.add('open'); } function closeCart(){ cartSidebar.classList.remove('open'); }
+
+function checkoutWhatsApp(){ if(cart.length===0){ alert('Cart is empty'); return; } const lines = ['Dinu Eco Product - Order']; let total=0; cart.forEach(ci=>{ const p = PRODUCTS.find(x=>x.id===ci.id); lines.push(${p.name} (${p.en}) - ${p.weight} x ${ci.qty} = Rs. ${p.price*ci.qty}); total += p.price*ci.qty; }); lines.push(Total: Rs. ${total}); lines.push('Customer Name:'); lines.push('Address:'); const msg = encodeURIComponent(lines.join('\n')); const wa = https://wa.me/94701691792?text=${msg}; window.open(wa, '_blank'); }
+
+// Event delegation function attachEvents(){ document.addEventListener('click', e=>{ if(e.target.matches('.add-btn')) addToCart(e.target.dataset.id); if(e.target.matches('#cart-toggle')) openCart(); if(e.target.matches('#close-cart')) closeCart(); if(e.target.matches('.plus')) changeQty(e.target.dataset.id, 1); if(e.target.matches('.minus')) changeQty(e.target.dataset.id, -1); if(e.target.matches('.remove')) removeItem(e.target.dataset.id); if(e.target.matches('#checkout-btn')) checkoutWhatsApp(); });
+
+if(searchInput) searchInput.addEventListener('input', ()=>{ const q = searchInput.value.trim().toLowerCase(); const filtered = PRODUCTS.filter(p=> (p.name + ' ' + p.en).toLowerCase().includes(q)); renderProducts(filtered); });
+
+if(sortSelect) sortSelect.addEventListener('change', ()=>{ const v = sortSelect.value; let arr = [...PRODUCTS]; if(v==='price-asc') arr.sort((a,b)=>a.price-b.price); if(v==='price-desc') arr.sort((a,b)=>b.price-a.price); renderProducts(arr); }); }
+
+// Init (function init(){ // If elements don't exist (we're on home page), just set year and cart count const y = new Date().getFullYear(); const yEl = document.getElementById('year'); if(yEl) yEl.textContent = y; const yEl2 = document.getElementById('year2'); if(yEl2) yEl2.textContent = y;
+
+if(productGrid) renderProducts(); attachEvents(); updateCartUI(); })();
+
+/* End of script.js */

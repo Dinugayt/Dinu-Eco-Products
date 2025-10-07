@@ -1,0 +1,67 @@
+<!--
+Project: Dinu Eco Product - Small website (Home + Shop)
+Files included below: index.html, shop.html, assets/styles.css, assets/script.js
+Instructions: Save files preserving folders exactly (create assets/ folder), put images in assets/images/ with the filenames used, then open index.html in a browser or upload folder to any static host (GitHub Pages / Netlify / Vercel / Hostinger).
+
+WhatsApp order number used in code: +94 701691792
+Product images expected (place inside assets/images/):
+  - kohila_powder.jpg
+  - polos_powder.jpg
+  - kurundu_powder.jpg
+
+--><!------------------------- index.html --------------------------><!-- Home page --><!DOCTYPE html><html lang="si">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dinu Eco Product - Home</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">🌿 Dinu Eco Product</a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="cart-toggle" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+    </div>
+  </header>  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-text">
+          <h1>Traditional. Fresh. Eco-friendly.</h1>
+          <p>Dinu Eco Product – Fresh, healthy, and eco-friendly traditional Sri Lankan food products made with natural ingredients.</p>
+          <a class="cta-btn" href="shop.html">Shop Now</a>
+        </div>
+        <div class="hero-image">
+          <img src="assets/images/kohila_powder.jpg" alt="Kohila Powder">
+        </div>
+      </div>
+    </section><section class="features container">
+  <div class="feature">
+    <h3>Pure Ingredients</h3>
+    <p>100% natural, no preservatives.</p>
+  </div>
+  <div class="feature">
+    <h3>Locally Made</h3>
+    <p>Supporting traditional methods and local farmers.</p>
+  </div>
+  <div class="feature">
+    <h3>Fast WhatsApp Orders</h3>
+    <p>Order quickly through WhatsApp checkout.</p>
+  </div>
+</section>
+
+<section id="contact" class="contact container">
+  <h2>Contact</h2>
+  <p>WhatsApp Orders: <strong>+94 701691792</strong></p>
+  <p>Email: <em>info@dinueco.example</em> (replace with real email)</p>
+</section>
+
+  </main>  <footer>
+    <div class="container">
+      © <span id="year"></span> Dinu Eco Product • WhatsApp: +94 701691792
+    </div>
+  </footer>  <script src="assets/script.js"></script></body>
